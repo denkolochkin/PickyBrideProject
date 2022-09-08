@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Entity\" />
+    <None Remove="Faker" />
+    <None Remove="Service\" />
+    <None Remove="NLog" />
+    <None Remove="log4net" />
+    <None Remove="dto\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entity\" />
+    <Folder Include="Service\" />
+    <Folder Include="dto\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Faker" Version="1.2.0" />
+  </ItemGroup>
+</Project>
