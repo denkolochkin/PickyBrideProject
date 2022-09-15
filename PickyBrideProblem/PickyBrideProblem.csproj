@@ -7,20 +7,30 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1701;1702;8602;8604</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <None Remove="Entity\" />
     <None Remove="Faker" />
     <None Remove="Service\" />
     <None Remove="NLog" />
     <None Remove="log4net" />
-    <None Remove="dto\" />
+    <None Remove="System.Configuration.ConfigurationManager" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entity\" />
     <Folder Include="Service\" />
-    <Folder Include="dto\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Faker" Version="1.2.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
+    <PackageReference Include="log4net" Version="2.0.15" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Configuration.ConfigurationManager">
+      <HintPath>bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

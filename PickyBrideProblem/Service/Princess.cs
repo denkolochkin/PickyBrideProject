@@ -1,12 +1,22 @@
 ﻿using PickyBrideProblem.Entity;
 using PickyBrideProblem.Dto;
 
+using System.Configuration;
+
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace PickyBrideProblem.Service
 {
     public class Princess
     {
 
+        private static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private int DatesCount = 1;
+
+        private readonly int ContendersCount =
+            int.Parse(ConfigurationManager.AppSettings["ContendersCount"]);
 
         private readonly List<Contender> FirstContenders = new();
 
@@ -16,7 +26,7 @@ namespace PickyBrideProblem.Service
 
             friend.ProcessedContenders.Add(contender);
 
-            if (DatesCount < (Properties.ContendersCount / Math.E))
+            if (DatesCount < (ContendersCount / Math.E))
             {
                 FirstContenders.Add(contender);
             }
@@ -25,12 +35,12 @@ namespace PickyBrideProblem.Service
                 Contender bestOfFirst = FindBestOfFirst(friend);
 
                 if (!friend.Compare(contender, bestOfFirst).Equals(bestOfFirst)
-                    || DatesCount.Equals(Properties.ContendersCount))
+                    || DatesCount.Equals(ContendersCount))
                 {
                     PrintResult(contender);
                     return new PrincessAnswer
                     {
-                        Answer = Properties.PositiveAnswer,
+                        Answer = ConfigurationManager.AppSettings["PositiveAnswer"],
                         Quality = contender.Quality
                     };
                 }
@@ -40,7 +50,7 @@ namespace PickyBrideProblem.Service
 
             return new PrincessAnswer
             {
-                Answer = Properties.NegativeAnswer
+                Answer = ConfigurationManager.AppSettings["NegativeAnswer"]
             };
         }
 
@@ -59,13 +69,13 @@ namespace PickyBrideProblem.Service
 
         private void PrintStatus(Contender contender)
         {
-            Console.WriteLine("Date #" + DatesCount
+            log.Info("Date #" + DatesCount
                 + " : " + contender.Name + " " + contender.Lastname);
         }
 
         private static void PrintResult(Contender contender)
         {
-            Console.WriteLine(contender.Quality);
+            log.Info(contender.Quality);
         }
     }
 }
