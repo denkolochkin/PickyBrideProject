@@ -11,10 +11,11 @@ namespace PickyBrideProblem.Service
         private readonly int ContendersCount =
             int.Parse(ConfigurationManager.AppSettings["ContendersCount"]);
 
-        private readonly List<Contender> contenders = new();
 
-        public ContenderGenerator()
+        public List<Contender> GenerateContenders()
         {
+            List<Contender> contenders = new();
+
             for (int i = 0; i < ContendersCount; i++)
             {
                 contenders.Add(new Contender
@@ -24,10 +25,7 @@ namespace PickyBrideProblem.Service
                     Quality = i + 1
                 });
             }
-        }
 
-        public List<Contender> GetContenders()
-        {
             return contenders;
         }
     }
